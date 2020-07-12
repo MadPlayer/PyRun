@@ -1,0 +1,10 @@
+{
+    "format": [
+        "env_location",
+        "command"
+    ],
+    "conda": {
+        "env_location": "D:\\Program Files\\Anaconda",
+        "command": "\\condabin\\activate.bat~{env_name}~&&~python~{script_location}{script_name}"
+    }
+}
