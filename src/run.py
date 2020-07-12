@@ -1,4 +1,4 @@
-from py_run_gui import MainWindow
+from GUI.main_window import MainWindow
 
 if __name__=="__main__":
     MainWindow()

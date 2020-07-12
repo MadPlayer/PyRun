@@ -127,7 +127,11 @@ class JsonDataTable(dict):
         Obviously, Value also has "proper format".
         '''
         if key != "format":
-            if set(self["format"]) == set(val.keys()):
+            format = self["format"]
+            if set(format) == set(val.keys()):
+                # sort properly
+                values = [val[key] for key in format]
+                val = dict(zip(format, values))
                 super().__setitem__(key, val)
             else:
                 raise ValueError("data format unmattched")

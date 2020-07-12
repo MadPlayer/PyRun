@@ -21,8 +21,11 @@ class PyRun:
         row_key is pid
         '''
         self.__subprocess_table = jdt.JsonDataTable()
-        self.__subprocess_table["format"] = ["name", "env", "script location",
-                                                "status"]
+        self.__subprocess_table["format"] = ["script name",
+                                            "env_kind",
+                                            "env_name",
+                                            "script location",
+                                            ]
 
         self.__process_manager = ManageSubprocess()
 
@@ -32,8 +35,10 @@ class PyRun:
         '''
         try:
             data = self.script_data[script_id]
-            if data["env_kind"] == CONDA_NAME:
-                self.__conda_script_run(data, args=args)
+            env_kind = data["env_kind"]
+            if env_kind == CONDA_NAME:
+                pid = self.__conda_script_run(data, args=args)
+                self.__subprocess_table[pid] = data
                 return True
             else:
                 return False
@@ -53,7 +58,7 @@ class PyRun:
         command = command.split("~")
         command.extend(args)
         print(command)
-        pid = self.__process_manager.spawn_subprocess(command,
+        return self.__process_manager.spawn_subprocess(command,
                                     creationflags=subprocess.CREATE_NEW_CONSOLE
                                     )
 
