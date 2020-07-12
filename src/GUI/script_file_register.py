@@ -56,7 +56,6 @@ class ScriptFileRegister(tk.Toplevel):
 
         self.columnconfigure(1, weight=1)
         self.rowconfigure(1, weight=1)
-        self.mainloop()
 
     def __seek_activate(self):
         ask_outcome = tkfile.askopenfilename()

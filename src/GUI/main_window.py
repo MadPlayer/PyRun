@@ -85,16 +85,17 @@ class MainWindow:
         env_data_table = self.__py_run.env_data
 
         ''' must be modified!!!!'''
-        tmp = ScriptFileRegister(self.__window, script_data=new_script_data,
+        self.__window.wait_window(ScriptFileRegister(self.__window, script_data=new_script_data,
                             env_name_list=["base", "crawler"],
-                            env_kind_list=["conda"]
+                            env_kind_list=["conda"])
                             )
         if new_script_data:
             new_script_id = str(len(script_data_table))
             script_data_table[new_script_id] = new_script_data
-            self.listbox.insert('', "end", iid=new_script_id,
-            values=tuple(new_script_data.values())
-            )
+            self.listbox.insert('', 'end', iid=new_script_id,
+                        text=new_script_id,
+                        values=tuple(script_data_table[new_script_id].values())
+                        )
 
     def __del__(self):
         try:

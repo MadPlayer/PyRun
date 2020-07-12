@@ -22,4 +22,6 @@ class DataTableListBox(ttk.Treeview):
 
         for row_key in data_table.keys():
             data = data_table[row_key]
-            self.insert('', 'end', iid=row_key, text=row_key, values=tuple(data.values()))
+            self.insert('', 'end', iid=row_key,
+                        text=row_key, 
+                        values=tuple(data.values()))
