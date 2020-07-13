@@ -21,10 +21,10 @@ class PyRun:
         row_key is pid
         '''
         self.__subprocess_table = jdt.JsonDataTable()
-        self.__subprocess_table["format"] = ["script name",
+        self.__subprocess_table["format"] = ["script_name",
                                             "env_kind",
                                             "env_name",
-                                            "script location",
+                                            "script_location",
                                             ]
 
         self.__process_manager = ManageSubprocess()

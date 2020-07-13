@@ -10,17 +10,5 @@
         "env_name": "base",
         "env_kind": "conda",
         "script_location": "C:\\Users\\MadPlayer\\Desktop\\"
-    },
-    "2": {
-        "script_name": "temp.py",
-        "env_name": "base",
-        "env_kind": "conda",
-        "script_location": "E:\\KCH\\GIT\\Universal-File-RW\\src\\"
-    },
-    "3": {
-        "script_name": "Dataset.py",
-        "env_name": "crawler",
-        "env_kind": "conda",
-        "script_location": "E:\\KCH\\GIT\\Universal-File-RW\\src\\"
     }
 }
