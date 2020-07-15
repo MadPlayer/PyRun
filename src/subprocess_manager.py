@@ -2,7 +2,7 @@ import subprocess
 import signal
 import json_data_table as jdt
 
-class ManageSubprocess:
+class SubprocessManager:
     '''
     spawn subprocess and manage them
     can provide subprocesses states
@@ -14,7 +14,7 @@ class ManageSubprocess:
 
     def __init__(self):
         self.__subprocess_table = jdt.JsonDataTable()
-        self.__subprocess_table["format"] = ManageSubprocess.table_format
+        self.__subprocess_table["format"] = SubprocessManager.table_format
 
     def spawn_subprocess(self, *args, **kwargs):
         '''

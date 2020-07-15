@@ -1,11 +1,11 @@
 import json_data_table as jdt
-from manage_subprocess import ManageSubprocess
+from subprocess_manager import SubprocessManager
 import subprocess
 import os
 
 CONDA_NAME = "conda"
 
-class PyRun:
+class PyRunManager:
     '''
     link data flow and manage events
     '''
@@ -27,7 +27,7 @@ class PyRun:
                                             "script_location",
                                             ]
 
-        self.__process_manager = ManageSubprocess()
+        self.__subprocess_manager = SubprocessManager()
 
     def run_script(self, script_id : str, args=[]):
         '''
@@ -58,7 +58,7 @@ class PyRun:
         command = command.split("~")
         command.extend(args)
         print(command)
-        return self.__process_manager.spawn_subprocess(command,
+        return self.__subprocess_manager.spawn_subprocess(command,
                                     creationflags=subprocess.CREATE_NEW_CONSOLE
                                     )
 
