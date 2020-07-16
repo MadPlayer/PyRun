@@ -5,3 +5,4 @@ Don't use console to run Python Script files!!!
 # requirements
 - pure python installation
 - write some json files in data table folder
+[Usage Link](https://madplayer.github.io/application/PyRun/)
