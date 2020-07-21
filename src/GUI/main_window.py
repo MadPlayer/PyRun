@@ -85,7 +85,8 @@ class MainWindow:
         env_data_table = self.__main_executor.env_data
 
         ''' must be modified!!!!'''
-        self.__window.wait_window(ScriptFileRegister(self.__window, script_data=new_script_data,
+        self.__window.wait_window(ScriptFileRegister(self.__window,
+                            script_data=new_script_data,
                             env_name_list=["base", "crawler"],
                             env_kind_list=["conda"])
                             )
