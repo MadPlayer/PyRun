@@ -20,6 +20,7 @@ env_data_table_format = [
 
 class JsonDataTable(dict):
     '''
+    master is ref var of owner class
     data table for json file format (json_data_table format)
     shape is like this
     {
@@ -42,60 +43,41 @@ class JsonDataTable(dict):
     }
     '''
 
-    def __init__(self, **kwargs):
+    def __init__(self, master, data={}):
         '''
-        "path" contains the file's absolute path
         "data" is a dictionary satisfies format
         '''
         super().__init__(self)
         self.__path = ""
+        self.__master = master
 
-        if "data" in kwargs.keys():
-            data = kwargs["data"]
+        if data:
             if "format" not in data.keys():
                 key = list(data.keys())[0]
-                self["format"] = [format_key for format_key in data[key].keys()]
+                super().__setitem__("format",[format_key for format_key in data[key].keys()])
             #read data
             for key, val in data.items():
-                self[key] = val
+                super().__setitem__(key, val)
 
-        if "path" in kwargs.keys():
-            self.__path = kwargs["path"]
-
-    def load_data_table(self, path = ""):
-        '''
-        load data table file
-        file must be json_data_table !!!format!!!
-        '''
-        if path != "":
-            self.__load_data_table(path)
-        elif self.__path != "":
-            self.__load_data_table(self.__path)
-
-        else:
-            raise ValueError("Nothing was happened!!!")
-
-    def __load_data_table(self, path : str):
+    def load_data_table(self, path):
         with open(path, "r") as json_file:
             json_data = json.load(json_file)
-            self.__init__(data = json_data, path = self.__path)
-
-    def save_data_table(self, path = "", overwrite = False):
+            self.__init__(master=self.__master, data=json_data)
+            self.__path = path
+            
+    def save_data_table(self, path = ""):
         '''
         write data table file
         file will be json file
         '''
         str_self = json.dumps(self, indent=4)
-        if path == "" and overwrite:
+        if path == "":
+            print(self.__path)
             with open(self.__path, "w") as new_save_file:
                 new_save_file.write(str_self)
-
-        elif path != "":
-            print(path)
+        else:
             with open(path, "w") as new_save_file:
                 new_save_file.write(str_self)
-        else:
-            raise ValueError("Nothing was happened!!!")
 
     def keys(self):
         ''' exclude 'format' part from table '''
@@ -120,23 +102,31 @@ class JsonDataTable(dict):
     def __str__(self):
         return json.dumps(self, indent=4)
 
-    def __setitem__(self, key, val:dict):
+    def set_item(self, master, key, item: dict):
         '''
         Every data must satisfies format.
         To use this method, Data has "proper format" is mendatory.
         Obviously, Value also has "proper format".
         '''
-        if key != "format":
-            format = self["format"]
-            if set(format) == set(val.keys()):
-                # sort properly
-                values = [val[key] for key in format]
-                val = dict(zip(format, values))
-                super().__setitem__(key, val)
-            else:
-                raise ValueError("data format unmattched")
+        if self.__master != master or key == "format":
+            return False
+
+        format = self["format"]
+        if set(format) == set(item.keys()):
+            # sort properly
+            values = [item[key] for key in format]
+            item = dict(zip(format, values))
+            super().__setitem__(key, item)
+            return True
         else:
-            super().__setitem__(key, list(val) )
+            raise ValueError("data format unmattched")
+
+    def set_format(self, master, format: list):
+        if master == self.__master:
+            super().__setitem__("format", format)
 
     def __iter__(self):
         yield from list(self.keys())[1:]
+
+    def __setitem__(self, key, val:dict):
+        raise Exception("No data is inserted JsonDataTable __setitem__")

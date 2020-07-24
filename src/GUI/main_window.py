@@ -1,13 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
-import json_data_table as jdt
 from GUI.data_table_list_box import DataTableListBox
 from GUI.menu_bar import MenuBar
 from GUI.script_file_register import ScriptFileRegister
+from GUI.main_top_frame import MainTopFrame
+from GUI.main_bottom_frame import MainBottomFrame
 from py_run_manager import PyRunManager
 
 class MainWindow:
-    def __init__(self):
+    def __init__(self, pyrun: PyRunManager):
         '''for init main menu bar'''
         main_menu_init_data = {
         "script register" : self.__register_script_activated,
@@ -16,38 +17,22 @@ class MainWindow:
         }
 
 
-        self.__main_executor = PyRunManager()
+        self.__py_run = pyrun
 
         self.__window = tk.Tk()
         self.__window.title("Py-Run")
-        self.__window.geometry("640x480+100+100")
+        self.__window.geometry("720x480+100+100")
         self.__window.resizable(True, True)
 
         '''frame setting'''
-        self.__frame_top = tk.Frame(self.__window)
-        self.__frame_bottom = tk.Frame(self.__window)
+        self.__frame_top = MainTopFrame(self.__window)
+        self.__frame_bottom = MainBottomFrame(self.__window, self.__py_run.get_script_table())
         self.__frame_top.pack(side="top", fill="both", expand=True)
         self.__frame_bottom.pack(side="bottom", fill="both", expand=True)
 
         '''main menu bar'''
-        self.__main_menu = MenuBar(self.__frame_top, menu_name="Menu",
+        self.__main_menu = MenuBar(self.__window, menu_name="Menu",
                                 label_to_command=main_menu_init_data)
-
-        '''arg entry'''
-        self.__arg_var = tk.StringVar(self.__frame_top)
-        self.__arg_entry = tk.Entry(self.__frame_top,
-                                    textvariable=self.__arg_var)
-        self.__arg_entry.pack(side="top", fill="x", padx=50, pady=10)
-
-        '''run button'''
-        self.__run_button = tk.Button(self.__frame_top, text="run")
-        self.__run_button.pack(side="top", padx = 50, pady = 10)
-
-        '''list box'''
-        self.__listbox = DataTableListBox(master=self.__frame_bottom,
-                                        data_table=self.__main_executor.script_data,
-                                        row_tag="script id")
-        self.__listbox.pack(fill="both")
 
         self.__gui_bind_init()
 
@@ -57,9 +42,7 @@ class MainWindow:
     def __gui_bind_init(self):
         '''graphic objects action setting'''
         '''run script'''
-        self.__run_button.config(command=self.__run_activated, repeatdelay=1000,
-                                repeatinterval=100)
-        self.__arg_entry.bind("<Return>", func=lambda event : self.__run_activated())
+        self.__frame_top.set_run_action(self.__run_activated)
 
         '''register script menu'''
 
@@ -67,22 +50,22 @@ class MainWindow:
     def __run_activated(self):
         '''action for run button'''
         try:
-            selected_ids = self.__listbox.selection()
+            selected_ids = self.__frame_bottom.get_selection()
             if len(selected_ids) > 1:
                 for script_id in selected_ids:
-                    self.__main_executor.run_script(script_id=script_id)
+                    self.__py_run.run_script(script_id=script_id)
             else:
-                entry_args = self.__arg_entry.get().split(" ")
+                entry_args = self.__frame_top.get().split(" ")
                 print(entry_args)
-                self.__main_executor.run_script(script_id=selected_ids[0],
+                self.__py_run.run_script(script_id=selected_ids[0],
                                         args=entry_args)
         except IndexError:
             print("select script")
 
     def __register_script_activated(self):
         new_script_data = {}
-        script_data_table = self.__main_executor.script_data
-        env_data_table = self.__main_executor.env_data
+        script_data_table = self.__py_run.get_script_table()
+        env_data_table = self.__py_run.get_env_table()
 
         ''' must be modified!!!!'''
         self.__window.wait_window(ScriptFileRegister(self.__window,
@@ -95,11 +78,5 @@ class MainWindow:
             script_data_table[new_script_id] = new_script_data
             self.__listbox.insert('', 'end', iid=new_script_id,
                         text=new_script_id,
-                        values=tuple(script_data_table[new_script_id].values())
+                        values=tuple(new_script_data.values())
                         )
-
-    def __del__(self):
-        try:
-            self.__window.destroy()
-        except Exception:
-            print("bye")
