@@ -5,7 +5,7 @@ class SFRTopFrame(tk.Frame):
     '''top frame for script file register'''
 
     def __init__(self, master):
-        super().__init__(master, relief="solid", bd=2)
+        super().__init__(master)
         self.__func = lambda : None
 
         location_entry_label = tk.Label(master=self, text="Script File Location")

@@ -107,8 +107,15 @@ class JsonDataTable(dict):
         if master == self.__master:
             super().__setitem__("format", format)
 
+    def delete_item(self, master, key: str):
+        if master == self.__master:
+            super().__delitem__(key)
+
     def __iter__(self):
         yield from list(self.keys())[1:]
 
     def __setitem__(self, key, val:dict):
         raise Exception("No data is inserted JsonDataTable __setitem__")
+
+    def __delete__(self, key):
+        raise Exception("No data is deleted JsonDataTable __delete__")

@@ -23,4 +23,4 @@ class MainBottomFrame(tk.Frame):
 
     def remove_item(self):
         for script_id in self.get_selection():
-            self.__listbox.remove_item(script_id)
+            self.__listbox.delete(script_id)

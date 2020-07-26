@@ -54,8 +54,8 @@ class PyRunManager:
         '''only for conda env script'''
         #command_conda = [python_location, script_location, args]
         command_conda = []
-        command_conda.append(python_location + "\\python.exe")
-        command_conda.append(script_data["script_location"] + 
+        command_conda.append(python_location + "/python.exe")
+        command_conda.append(script_data["script_location"] + "/" +
                             script_data["script_name"])
         command_conda.extend(args)
 

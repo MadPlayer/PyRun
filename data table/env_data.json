@@ -7,6 +7,6 @@
     "env_id": {
         "env_kind": "conda",
         "env_name": "base",
-        "python_location": "D:\\Program Files\\Anaconda"
+        "python_location": "D:/Program Files/Anaconda"
     }
 }
