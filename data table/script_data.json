@@ -1,14 +1,12 @@
 {
     "format": [
         "script_name",
-        "env_name",
-        "env_kind",
+        "env_id",
         "script_location"
     ],
     "script_id": {
         "script_name": "sleep.py",
-        "env_name": "base",
-        "env_kind": "conda",
-        "script_location": "C:\\Users\\MadPlayer\\Desktop\\"
+        "env_id": "env_id",
+        "script_location": "C:/Users/MadPlayer/Desktop/"
     }
 }

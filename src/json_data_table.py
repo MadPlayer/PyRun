@@ -1,23 +1,5 @@
 import json
 
-# row key is script_id
-script_data_table_format = [
-        "script_name",
-        "env_kind", # conda or venv ...
-        "env_name", # for conda ex base
-
-        # script_location has absolute path to dictionary contains script file
-        "script_location",
-]
-
-# row key is env_name
-env_data_table_format = [
-        # env_location has absolute path to enviroment path
-        "env_location",
-
-        "command",
-]
-
 class JsonDataTable(dict):
     '''
     master is ref var of owner class
@@ -64,7 +46,7 @@ class JsonDataTable(dict):
             json_data = json.load(json_file)
             self.__init__(master=self.__master, data=json_data)
             self.__path = path
-            
+
     def save_data_table(self, path = ""):
         '''
         write data table file
