@@ -76,6 +76,7 @@ class MainWindow:
             print(new_script_data)
             new_script_id = str(len(script_data_table))
             script_data_table.set_item(self.__py_run, new_script_id, new_script_data)
+            new_script_data = script_data_table[new_script_id]
             self.__frame_bottom.add_item(new_script_id, new_script_data)
 
     def __delete_activated(self):
