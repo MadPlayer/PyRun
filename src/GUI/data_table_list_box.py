@@ -1,11 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
+from json_data_table import JsonDataTable
 
 class DataTableListBox(ttk.Treeview):
     '''
     * display json_data_table
     '''
-    def __init__(self, master, data_table, row_tag: str):
+    def __init__(self, master, data_table: JsonDataTable, row_tag: str):
         '''
         load the json_data_table to listbox
         '''

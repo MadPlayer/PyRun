@@ -11,9 +11,9 @@ class MainWindow:
     def __init__(self, pyrun: PyRunManager):
         '''for init main menu bar'''
         main_menu_init_data = {
-        "script register" : self.__register_script_activated,
-        "register enviroment" : lambda : None,
-        "process manager" : lambda : None
+        "script register" : self.__script_register_activated,
+        "register enviroment" : (lambda : None),
+        "process manager" : (lambda : None)
         }
 
 
@@ -43,9 +43,9 @@ class MainWindow:
         '''graphic objects action setting'''
         '''run script'''
         self.__frame_top.set_run_action(self.__run_activated)
+        self.__frame_top.set_del_action(self.__delete_activated)
 
         '''register script menu'''
-
 
     def __run_activated(self):
         '''action for run button'''
@@ -62,7 +62,7 @@ class MainWindow:
         except IndexError:
             print("select script")
 
-    def __register_script_activated(self):
+    def __script_register_activated(self):
         new_script_data = {}
         script_data_table = self.__py_run.get_script_table()
         env_data_table = self.__py_run.get_env_table()
@@ -70,13 +70,19 @@ class MainWindow:
         ''' must be modified!!!!'''
         self.__window.wait_window(ScriptFileRegister(self.__window,
                             script_data=new_script_data,
-                            env_name_list=["base", "crawler"],
-                            env_kind_list=["conda"])
-                            )
+                            env_table=env_data_table
+                            ))
         if new_script_data:
+            print(new_script_data)
             new_script_id = str(len(script_data_table))
-            script_data_table[new_script_id] = new_script_data
-            self.__listbox.insert('', 'end', iid=new_script_id,
-                        text=new_script_id,
-                        values=tuple(new_script_data.values())
-                        )
+            script_data_table.set_item(self.__py_run, new_script_id, new_script_data)
+            self.__frame_bottom.add_item(new_script_id, new_script_data)
+
+    def __delete_activated(self):
+        '''action for delete button'''
+        selected_ids = self.__frame_bottom.get_selection()
+        script_table = self.__py_run.get_script_table()
+
+        self.__frame_bottom.remove_item()
+        for script_id in selected_ids:
+            script_table.delete_item(self.__py_run, script_id)

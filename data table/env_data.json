@@ -1,10 +1,12 @@
 {
     "format": [
-        "env_location",
-        "command"
+        "env_kind",
+        "env_name",
+        "python_location"
     ],
-    "conda": {
-        "env_location": "D:\\Program Files\\Anaconda",
-        "command": "\\condabin\\activate.bat~{env_name}~&&~python~{script_location}{script_name}"
+    "env_id": {
+        "env_kind": "conda",
+        "env_name": "base",
+        "python_location": "D:/Program Files/Anaconda"
     }
 }

@@ -5,7 +5,7 @@ class MainTopFrame(tk.Frame):
 
 
     def __init__(self, master):
-        super().__init__(master, relief="solid", bd=2)
+        super().__init__(master)
         self.__run_button = tk.Button(self, text="Run")
         self.__delete_button = tk.Button(self, text="Delete")
         self.__args_entry = tk.Entry(self)
