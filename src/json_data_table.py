@@ -117,5 +117,5 @@ class JsonDataTable(dict):
     def __setitem__(self, key, val:dict):
         raise Exception("No data is inserted JsonDataTable __setitem__")
 
-    def __delete__(self, key):
+    def __delitem__(self, key):
         raise Exception("No data is deleted JsonDataTable __delete__")
