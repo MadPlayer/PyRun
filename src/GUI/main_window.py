@@ -1,10 +1,12 @@
 import tkinter as tk
+from hash_func import hash_crc32_data
 from tkinter import ttk
 from GUI.data_table_list_box import DataTableListBox
 from GUI.menu_bar import MenuBar
 from GUI.script_file_register import ScriptFileRegister
 from GUI.main_top_frame import MainTopFrame
 from GUI.main_bottom_frame import MainBottomFrame
+from GUI.env_window import EnvWindow
 from py_run_manager import PyRunManager
 
 class MainWindow:
@@ -12,7 +14,7 @@ class MainWindow:
         '''for init main menu bar'''
         main_menu_init_data = {
         "script register" : self.__script_register_activated,
-        "register enviroment" : (lambda : None),
+        "env table modify" : self.__env_modify_activated,
         "process manager" : (lambda : None)
         }
 
@@ -47,6 +49,7 @@ class MainWindow:
 
         '''register script menu'''
 
+    #for main window
     def __run_activated(self):
         '''action for run button'''
         try:
@@ -62,6 +65,17 @@ class MainWindow:
         except IndexError:
             print("select script")
 
+    #for main window
+    def __delete_activated(self):
+        '''action for delete button'''
+        selected_ids = self.__frame_bottom.get_selection()
+        script_table = self.__py_run.get_script_table()
+
+        self.__frame_bottom.remove_item()
+        for script_id in selected_ids:
+            script_table.delete_item(self.__py_run, script_id)
+
+    #for script register window
     def __script_register_activated(self):
         new_script_data = {}
         script_data_table = self.__py_run.get_script_table()
@@ -74,16 +88,10 @@ class MainWindow:
                             ))
         if new_script_data:
             print(new_script_data)
-            new_script_id = str(len(script_data_table))
+            new_script_id = str(hash_crc32_data(script_data_table))
             script_data_table.set_item(self.__py_run, new_script_id, new_script_data)
             new_script_data = script_data_table[new_script_id]
             self.__frame_bottom.add_item(new_script_id, new_script_data)
 
-    def __delete_activated(self):
-        '''action for delete button'''
-        selected_ids = self.__frame_bottom.get_selection()
-        script_table = self.__py_run.get_script_table()
-
-        self.__frame_bottom.remove_item()
-        for script_id in selected_ids:
-            script_table.delete_item(self.__py_run, script_id)
+    def __env_modify_activated(self):
+        self.__window.wait_window(EnvWindow(self.__window, self.__py_run))

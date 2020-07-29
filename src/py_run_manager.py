@@ -11,11 +11,11 @@ class PyRunManager:
     '''
     def __init__(self):
         parent_dir = os.path.dirname(os.path.realpath(__file__))
-        parent_dir = os.path.dirname(parent_dir)
+        parent_dir = os.path.dirname(parent_dir).replace("\\", "/")
         self.__env_table = jdt.JsonDataTable(master=self)
         self.__script_table = jdt.JsonDataTable(master=self)
-        self.__env_table.load_data_table(path=parent_dir + "\\data table\\env_data.json")
-        self.__script_table.load_data_table(path=parent_dir + "\\data table\\script_data.json")
+        self.__env_table.load_data_table(path=parent_dir + "/data table/env_data.json")
+        self.__script_table.load_data_table(path=parent_dir + "/data table/script_data.json")
         '''
         __subprocess_table is for display
         row_key is pid
