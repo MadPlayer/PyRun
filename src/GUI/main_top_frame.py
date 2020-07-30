@@ -11,11 +11,12 @@ class MainTopFrame(tk.Frame):
         self.__args_entry = tk.Entry(self)
 
         self.__args_entry.pack(side="left", padx=10, pady=10, expand=True, fill="x")
-        self.__delete_button.pack(side="left", padx=10, pady=10)
         self.__run_button.pack(side="left", padx=10)
+        self.__delete_button.pack(side="bottom", padx=10, pady=10)
 
     def set_run_action(self, command):
-        self.__run_button.config(command=command, repeatdelay=1000,
+        self.__run_button.config(command=command,
+                                repeatdelay=1000,
                                 repeatinterval=100)
         self.__args_entry.bind("<Return>", lambda e: command())
 

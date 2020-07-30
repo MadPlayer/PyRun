@@ -19,7 +19,7 @@ class EnvWindow(tk.Toplevel):
         self.__bottom_frame = EWBottomFrame(self, py_run.get_env_table())
         self.__bottom_frame.pack(side="bottom", fill="both", expand=True)
 
-        self.__top_frame.set_regist_activated(self.__regist_env)
+        self.__top_frame.set_register_activated(self.__register_env)
         self.__bottom_frame.set_delete_activated(self.__delete_env)
 
     def __delete_env(self):
@@ -33,7 +33,7 @@ class EnvWindow(tk.Toplevel):
         # remove from listbox
         self.__bottom_frame.remove_item()
 
-    def __regist_env(self):
+    def __register_env(self):
         env_data = self.__top_frame.get_env_data()
         if env_data["python_location"] != "":
             env_table = self.__py_run.get_env_table()

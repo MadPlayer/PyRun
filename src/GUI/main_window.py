@@ -23,7 +23,6 @@ class MainWindow:
 
         self.__window = tk.Tk()
         self.__window.title("Py-Run")
-        # self.__window.geometry("720x480+100+100")
         self.__window.resizable(True, True)
 
         '''frame setting'''

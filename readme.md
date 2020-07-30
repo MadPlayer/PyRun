@@ -3,13 +3,15 @@ PyRun - convenient python script running tool
 Don't use console to run Python Script files!!!
 ----------------------------------------------
 # requirements
-- python installation
+- python 3.x(> 6) installation
+
+# current functions
+- register and delete script files
+- register and delete environments
+- execute script files
 
 # functions (will be implemented)
-- modify the script table
-- modify the enviroment table
-- pass arguments to the script
-- execute the script files
 - manage and display current running script files process
+- modify table items
 
 [Usage Link](https://madplayer.github.io/application/PyRun/)

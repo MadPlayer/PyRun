@@ -26,8 +26,8 @@ class EWTopFrame(tk.Frame):
         self.__seek_button = tk.Button(self, text="Seek location", command=self.__seek_activated)
         self.__seek_button.grid(row=3, column=0, sticky="e", padx=10, pady=10)
 
-        self.__regist_button = tk.Button(self, text="Regist")
-        self.__regist_button.grid(row=3, column=1, sticky="w", padx=5)
+        self.__register_button = tk.Button(self, text="Register")
+        self.__register_button.grid(row=3, column=1, sticky="w", padx=5)
 
         self.columnconfigure(1, weight=1)
         self.rowconfigure(1, weight=1)
@@ -38,8 +38,8 @@ class EWTopFrame(tk.Frame):
         self.__location_entry.delete(0, "end")
         self.__location_entry.insert(0, full_path)
 
-    def set_regist_activated(self, func):
-        self.__regist_button.config(command=func)
+    def set_register_activated(self, func):
+        self.__register_button.config(command=func)
 
     def get_env_data(self):
         "tag: env_data.json"
