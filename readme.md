@@ -14,4 +14,4 @@ Don't use console to run Python Script files!!!
 - manage and display current running script files process
 - modify table items
 
-[Usage Link](https://madplayer.github.io/application/PyRun/)
+[Usage Link](https://madplayer.github.io/application/PyRun-Beta2/)
