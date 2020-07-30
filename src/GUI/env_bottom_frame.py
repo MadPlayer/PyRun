@@ -11,13 +11,10 @@ class EWBottomFrame(tk.Frame):
         self.__env_listbox = DataTableListBox( master=self,
                                              data_table=env_table,
                                              row_tag="env id")
-        self.__env_listbox.grid(row=0, columnspan=2, sticky="news", padx=10, pady=5)
+        self.__env_listbox.pack(side="top", fill="both", expand=True, padx=10, pady=10)
 
         self.__delete_button = tk.Button(self, text="Delete")
-        self.__delete_button.grid(row=1, column=1, sticky="e", padx=5, pady=10)
-
-        self.columnconfigure(1, weight=1)
-        self.rowconfigure(1, weight=1)
+        self.__delete_button.pack(side="bottom", anchor="e", padx=10, pady=10)
 
     def set_delete_activated(self, func):
         self.__delete_button.config(command=func)

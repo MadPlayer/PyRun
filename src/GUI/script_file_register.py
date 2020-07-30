@@ -17,18 +17,15 @@ class ScriptFileRegister(tk.Toplevel):
         super().__init__(master)
         self.__script_data = script_data
         self.title("script file register")
-        self.geometry("720x480+100+100")
 
         self.__top_frame = SFRTopFrame(self)
         self.__top_frame.set_seek_action(self.__seek_activated)
-        self.__top_frame.pack(side="top", fill="both")
+        self.__top_frame.pack(side="top", fill="x")
 
         self.__env_table = env_table
         self.__bottom_frame = SFRBottomFrame(self, env_table)
         self.__bottom_frame.set_okay_action(self.__okay_button_activated)
-        self.__bottom_frame.pack(side="bottom", fill="both")
-        self.columnconfigure(1, weight=1)
-        self.rowconfigure(1, weight=1)
+        self.__bottom_frame.pack(side="bottom", fill="both", expand=True)
 
     def __seek_activated(self):
         path = self.__top_frame.get()
@@ -41,5 +38,5 @@ class ScriptFileRegister(tk.Toplevel):
             self.__script_data["env_id"] = self.__bottom_frame.get_selection()
         except Exception:
             self.__script_data = {}
-            
+
         self.destroy()

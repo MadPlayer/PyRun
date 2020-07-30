@@ -10,7 +10,7 @@ class MainBottomFrame(tk.Frame):
         self.__listbox = DataTableListBox(master=self,
                                             data_table=script_table,
                                             row_tag="script id")
-        self.__listbox.pack(fill="both")
+        self.__listbox.pack(fill="both", expand=True, padx=15, pady=15)
 
     def get_selection(self):
         return self.__listbox.selection()

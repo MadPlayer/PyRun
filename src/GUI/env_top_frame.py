@@ -18,14 +18,16 @@ class EWTopFrame(tk.Frame):
         self.__env_name_entry = tk.Entry(self)
         self.__env_name_entry.grid(row=1, column=1, sticky="we", padx=5, pady=10)
 
+        location_label = tk.Label(self, text="python.exe location")
+        location_label.grid(row=2, column=0, sticky="w", padx=5, pady=10)
         self.__location_entry = tk.Entry(self)
-        self.__location_entry.grid(row=2, column=0, columnspan=2, sticky="we", padx=50, pady=10)
+        self.__location_entry.grid(row=2, column=1, sticky="we", padx=5, pady=10)
 
-        self.__seek_button = tk.Button(self, text="Seek", command=self.__seek_activated)
-        self.__seek_button.grid(row=2, column=1, sticky="e", padx=10, pady=10)
+        self.__seek_button = tk.Button(self, text="Seek location", command=self.__seek_activated)
+        self.__seek_button.grid(row=3, column=0, sticky="e", padx=10, pady=10)
 
         self.__regist_button = tk.Button(self, text="Regist")
-        self.__regist_button.grid(row=3, column=1, sticky="e", padx=5)
+        self.__regist_button.grid(row=3, column=1, sticky="w", padx=5)
 
         self.columnconfigure(1, weight=1)
         self.rowconfigure(1, weight=1)

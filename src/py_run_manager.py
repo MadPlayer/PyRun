@@ -3,7 +3,6 @@ from process_manager import ProcessManager
 import subprocess
 import os
 
-CONDA_NAME = "conda"
 
 class PyRunManager:
     '''
@@ -37,31 +36,27 @@ class PyRunManager:
             script_data = self.__script_table[script_id]
             env_id = script_data["env_id"]
             env_data = self.__env_table[env_id]
-            if env_data["env_kind"] == CONDA_NAME:
-                pid = self.__conda_script_run(
-                            script_data,
-                            env_data["python_location"],
-                            args=args)
-                '''self.__subprocess_table[pid] = data'''
-                return True
-            else:
-                return False
+            pid = self.__script_run(
+                        script_data,
+                        env_data["python_location"],
+                        args=args)
+            '''self.__subprocess_table[pid] = data'''
+            return True
 
         except KeyError:
             return False
 
-    def __conda_script_run(self, script_data : dict, python_location, args=[]):
-        '''only for conda env script'''
-        #command_conda = [python_location, script_location, args]
-        command_conda = []
-        command_conda.append(python_location + "/python.exe")
-        command_conda.append(script_data["script_location"] + "/" +
+    def __script_run(self, script_data : dict, python_location, args=[]):
+        #command = [python_location, script_location, args]
+        command = []
+        command.append(python_location + "/python.exe")
+        command.append(script_data["script_location"] + "/" +
                             script_data["script_name"])
-        command_conda.extend(args)
+        command.extend(args)
 
         ''' who gonna manage pid '''
-        print(command_conda)
-        return self.__subprocess_manager.spawn_subprocess(command_conda,
+        print(command)
+        return self.__subprocess_manager.spawn_subprocess(command,
                                     creationflags=subprocess.CREATE_NEW_CONSOLE
                                     )
 

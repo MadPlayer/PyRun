@@ -10,9 +10,9 @@ class MainTopFrame(tk.Frame):
         self.__delete_button = tk.Button(self, text="Delete")
         self.__args_entry = tk.Entry(self)
 
-        self.__args_entry.pack(side="left", padx=5, pady=10, expand=True, fill="x")
-        self.__delete_button.pack(side="right", padx=50, pady=10)
-        self.__run_button.pack(side="right", padx=5)
+        self.__args_entry.pack(side="left", padx=10, pady=10, expand=True, fill="x")
+        self.__delete_button.pack(side="left", padx=10, pady=10)
+        self.__run_button.pack(side="left", padx=10)
 
     def set_run_action(self, command):
         self.__run_button.config(command=command, repeatdelay=1000,

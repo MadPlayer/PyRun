@@ -17,7 +17,7 @@ class EnvWindow(tk.Toplevel):
         self.__top_frame.pack(side="top", fill="both")
 
         self.__bottom_frame = EWBottomFrame(self, py_run.get_env_table())
-        self.__bottom_frame.pack(side="bottom", fill="both")
+        self.__bottom_frame.pack(side="bottom", fill="both", expand=True)
 
         self.__top_frame.set_regist_activated(self.__regist_env)
         self.__bottom_frame.set_delete_activated(self.__delete_env)

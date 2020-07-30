@@ -8,14 +8,14 @@ class SFRBottomFrame(tk.Frame):
     def __init__(self, master, env_table: JsonDataTable):
         super().__init__(master)
 
-        self.__okay_button = tk.Button(self, text="Ok", command=None)
-        self.__okay_button.grid(row=1, sticky="e", padx=100, pady=10)
+        self.__env_listbox = DataTableListBox( master=self,
+                                             data_table=env_table,
+                                             row_tag="env_id")
+        self.__env_listbox.pack(side="top", fill="both", expand=True, padx=10, pady=10)
 
-        self.__env_listbox = DataTableListBox(self, env_table, "env_id")
-        self.__env_listbox.grid(row=0, sticky="news", padx=5, pady=10)
+        self.__okay_button = tk.Button(self, text="Ok")
+        self.__okay_button.pack(side="bottom", anchor="e", padx=10, pady=10)
 
-        self.columnconfigure(1, weight=1)
-        self.rowconfigure(1, weight=1)
 
     def set_okay_action(self, func):
         self.__okay_button.config(command=func)
